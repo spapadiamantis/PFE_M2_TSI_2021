@@ -25,6 +25,7 @@ sphFV1 = sio.load_mesh(mesh_file)
 # Load texture
 mesh_file = '../KKI2009_113/MR1/lh.white.bassin1.gii'
 texture1  = sio.load_texture(mesh_file)
+texture1 = texture1.darray[0]
 
 # FV2: surface2 + sphere
 # Get transformation Matrix
