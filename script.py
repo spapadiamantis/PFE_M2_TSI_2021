@@ -2,6 +2,7 @@
 SLAM script
 How to deal with geometric noise by using spectral representation ?
 """
+
 import slam.utils as ut
 import numpy as np
 import numpy.matlib
@@ -9,8 +10,8 @@ import slam.generate_parametric_surfaces as sgps
 import slam.io as sio
 import slam.plot as splt
 import slam.curvature as scurv
-
-
+import slam.topology as stop
+import slam.differential_geometry as sdg
 
 # Load data
 # FV1: surface1 + sphere + patch
