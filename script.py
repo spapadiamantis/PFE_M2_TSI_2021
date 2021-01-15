@@ -55,3 +55,9 @@ displacement = np.sqrt(np.array((transFV2.vertices-FV1.vertices[0:len(transFV2.v
 visb_sc = splt.visbrain_plot(mesh=transFV2, tex=displacement,caption='displacement between surfaces',
                              cblabel='displacement')
 visb_sc.preview()
+
+# Segment mesh based on texture
+sub_meshes, sub_tex, sub_corresp = stop.cut_mesh(FV1,texture1)
+
+# Calculate laplacian eigenvectors
+V = sdg.mesh_laplacian_eigenvectors(sub_meshes[0])
