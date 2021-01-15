@@ -49,4 +49,9 @@ visb_sc.preview()
 
 # Calculate displacement between two surfaces
 # transFV2 must be replaced with resampled surface
-displacement= np.sqrt(np.array((transFV2.vertices-FV1.vertices[0:len(transFV2.vertices)])**2).sum(axis=1))
+displacement = np.sqrt(np.array((transFV2.vertices-FV1.vertices[0:len(transFV2.vertices)])**2).sum(axis=1))
+
+# Visualize displacement as a texture
+visb_sc = splt.visbrain_plot(mesh=transFV2, tex=displacement,caption='displacement between surfaces',
+                             cblabel='displacement')
+visb_sc.preview()
