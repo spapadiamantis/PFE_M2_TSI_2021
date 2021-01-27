@@ -15,6 +15,18 @@ import slam.topology as stop
 import slam.differential_geometry as sdg
 import matplotlib.pyplot as plt
 
+# This is a camera state for visbrain objects
+# camera state must be set upon initialization
+# and not a posteriori but cannot be passed as argument
+# to splt.visbrain_plot. Could be ameliorated
+CAM_STATE = dict(azimuth=-90,        # azimuth angle
+                 elevation=0,     # elevation angle
+                 scale_factor=180  # distance to the camera
+                 )
+S_KW = dict(camera_state=CAM_STATE)
+
+
+
 def get_displacement_approx(FV1,FV2):
     """
     Returns approximate displacement between two meshes of diferrent
@@ -42,7 +54,7 @@ def get_displacement_approx(FV1,FV2):
             # Calculate squared distance between all vertices in fist mesh and get minimal solution
             displacement[cnt]  = np.min(np.sqrt(np.array((FV1.vertices-i)**2)))
 
-            #Augment itereator
+            #Augment iterator
             cnt +=1
 
         # Save result to file 
