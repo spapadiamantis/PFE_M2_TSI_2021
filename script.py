@@ -129,3 +129,19 @@ spectrum2=np.transpose(V2)*B2*np.transpose(FV1.vertices)
 
 # Get spectrum of displacement
 spectrum_displacement=np.transpose(V1)*B1*displacement
+
+# Visualize spectrums
+plt.plot(np.log10(np.abs(spectrum1[0,:])),'b')
+plt.plot(np.log10(np.abs(spectrum2[0,:])),'r')
+plt.xlabel('Frequencies')
+plt.ylabel('Amplitudes (log10(abs(.) )')
+plt.show()
+ax = 1
+n = len(spectrum1[ax,:])
+x = np.arange(n)
+plt.plot(x,2*(spectrum1[ax,:]-spectrum2[ax,0:n])/(np.abs(spectrum1[ax,0:n])+np.abs(spectrum2[ax,0:n])))
+plt.xlabel('Frequencies')
+plt.ylabel('Relative errors')
+plt.show()
+
+
