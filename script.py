@@ -14,6 +14,9 @@ import slam.curvature as scurv
 import slam.topology as stop
 import slam.differential_geometry as sdg
 import matplotlib.pyplot as plt
+from sklearn.decomposition import PCA
+
+
 
 # This is a camera state for visbrain objects
 # camera state must be set upon initialization
@@ -85,10 +88,6 @@ mesh_file = '../KKI2009_113/MR2/lh.white.gii'
 FV2 = sio.load_mesh(mesh_file)
 M2 = FV2.principal_inertia_transform
 
-mesh_file = '../KKI2009_113/MR2/lh.sphere.reg.gii'
-sphFV2 = sio.load_mesh(mesh_file)
-
-
 # Transformation on FV2, inv(A1)*(A2*X2+T2-T1)
 transFV2=FV2
 transFV2.vertices = (FV2.vertices.dot(M2[0:3,0:3].T) + np.matlib.repmat((M2[0:3,3]-M1[0:3,3]).T , len(FV2.vertices),1)).dot(np.linalg.inv(M1[0:3,0:3]).T)
@@ -110,6 +109,7 @@ visb_sc.preview()
 
 # Segment mesh based on texture
 sub_meshes, sub_tex, sub_corresp = stop.cut_mesh(FV1,texture1)
+
 
 # Calculate laplacian eigenvectors for graphs
 
@@ -143,5 +143,22 @@ plt.plot(x,2*(spectrum1[ax,:]-spectrum2[ax,0:n])/(np.abs(spectrum1[ax,0:n])+np.a
 plt.xlabel('Frequencies')
 plt.ylabel('Relative errors')
 plt.show()
+
+# Perform Principal Component Analysis (PCA)
+PFV = np.column_stack((np.asarray(transFV2.vertices),displacement.T))
+pca = PCA(3)
+X_new = pca.fit_transform(PFV)
+scores = pca.score_samples(PFV)
+
+plt.scatter(X_new[:,0],X_new[:,1])
+plt.title(' Approximated Projection of the patch => dimensions of the quadric')
+plt.show()
+
+# Get length and width of mesh
+L=max(X_new[:,0])-min(X_new[:,0])
+w=max(X_new[:,1])-min(X_new[:,1])
+
+# Empircly chosen value for height of mesh
+h=10 
 
 
