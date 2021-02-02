@@ -177,3 +177,39 @@ V3 = sdg.mesh_laplacian_eigenvectors(quadricFV)
 
 spectrum_quad =np.transpose(V3)*B3*np.transpose(quadricFV.vertices)
 
+# Random displacement in the spectrum
+randomFV=quadricFV
+
+# Get lenth of vertices arrau
+N=len(randomFV.vertices)
+
+randomFV.vertices=randomFV.vertices+4*np.matlib.repmat(V3*spectrum_displacement[0:N-1],3,1).T*quadricFV.vertex_normals
+# Visualize randomized quadric surface
+visb_sc = splt.visbrain_plot(mesh=randomFV,caption='displacement',
+                             cblabel='displacement')
+
+visb_sc.preview()
+
+
+
+# Add more randomness to quadric surface
+randomFV = quadricFV
+
+
+
+# Generate random displacement based on displacement spectrum
+randomD=V3*spectrum_displacement[0:N-1]
+
+# Randomly  assign signs for positive value vector
+# produces depreciation warning 
+#randSign = np.sign(np.random.randint(-1,1+1,size=N))
+randSign = np.sign(np.random.random_integers(-1,1,size=N))
+randomD= np.multiply(randomD[:,1],randSign)
+randomFV.vertices=randomFV.vertices+4*np.matlib.repmat(randomD,3,1).T*quadricFV.vertex_normals
+
+# Visualize randomized quadric surface
+visb_sc = splt.visbrain_plot(mesh=randomFV,caption='displacement',
+                             cblabel='displacement')
+
+visb_sc.preview()
+
