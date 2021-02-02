@@ -110,6 +110,15 @@ visb_sc.preview()
 # Segment mesh based on texture
 sub_meshes, sub_tex, sub_corresp = stop.cut_mesh(FV1,texture1)
 
+# Segment txture respectively
+ind = np.argwhere(texture1>0)
+disp2 = displacement[ind]
+
+# Visualize sub mesh with displacement texture
+visb_sc = splt.visbrain_plot(mesh=sub_meshes[0],tex=disp2.flatten() ,caption='displacement',
+                             cblabel='displacement')
+
+visb_sc.preview()
 
 # Calculate laplacian eigenvectors for graphs
 
@@ -180,22 +189,11 @@ spectrum_quad =np.transpose(V3)*B3*np.transpose(quadricFV.vertices)
 # Random displacement in the spectrum
 randomFV=quadricFV
 
-# Get lenth of vertices arrau
+# Get lenth of vertices array
 N=len(randomFV.vertices)
-
-randomFV.vertices=randomFV.vertices+4*np.matlib.repmat(V3*spectrum_displacement[0:N-1],3,1).T*quadricFV.vertex_normals
-# Visualize randomized quadric surface
-visb_sc = splt.visbrain_plot(mesh=randomFV,caption='displacement',
-                             cblabel='displacement')
-
-visb_sc.preview()
-
-
 
 # Add more randomness to quadric surface
 randomFV = quadricFV
-
-
 
 # Generate random displacement based on displacement spectrum
 randomD=V3*spectrum_displacement[0:N-1]
