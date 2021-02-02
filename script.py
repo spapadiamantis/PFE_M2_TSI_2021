@@ -17,7 +17,6 @@ import matplotlib.pyplot as plt
 from sklearn.decomposition import PCA
 
 
-
 # This is a camera state for visbrain objects
 # camera state must be set upon initialization
 # and not a posteriori but cannot be passed as argument
@@ -94,6 +93,7 @@ transFV2.vertices = (FV2.vertices.dot(M2[0:3,0:3].T) + np.matlib.repmat((M2[0:3,
 
 # TO DO resample 2nd surface
 
+
 # Visualization of first surface
 visb_sc = splt.visbrain_plot(mesh=FV1, tex=texture1,caption='Surface 1 - ROI')
 visb_sc.preview()
@@ -158,7 +158,15 @@ plt.show()
 L=max(X_new[:,0])-min(X_new[:,0])
 w=max(X_new[:,1])-min(X_new[:,1])
 
-# Empircly chosen value for height of mesh
+# Empirically chosen value for height of mesh
 h=10 
 
+# Generate quadric surface
+incr=h/10
+x=np.arange(-L/2,L/2,incr)
+y=np.arange(-w/2,w/2,incr)
+X,Y=np.meshgrid(x,y)
+a=4*h/(w**2)
+#Z=a*Y.^2
 
+quadricFV = sgps.generate_quadric([1,a])
