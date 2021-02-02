@@ -170,3 +170,10 @@ a=4*h/(w**2)
 #Z=a*Y.^2
 
 quadricFV = sgps.generate_quadric([1,a])
+
+# Analyze spectrum
+_,B3 = sdg.compute_mesh_laplacian(quadricFV, lap_type='fem')
+V3 = sdg.mesh_laplacian_eigenvectors(quadricFV)
+
+spectrum_quad =np.transpose(V3)*B3*np.transpose(quadricFV.vertices)
+
