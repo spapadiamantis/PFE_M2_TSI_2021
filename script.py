@@ -104,7 +104,7 @@ visb_sc.preview()
 displacement = get_displacement_approx(FV1,transFV2)
 
 # Visualize displacement as a texture
-visb_sc = splt.visbrain_plot(mesh=transFV2, tex=displacement,caption='displacement between surfaces',
+visb_sc = splt.visbrain_plot(mesh=transFV2, tex=displacement,caption='Displacement between surfaces',
                              cblabel='displacement')
 visb_sc.preview()
 
@@ -116,7 +116,7 @@ ind = np.argwhere(texture1>0)
 disp2 = displacement[ind]
 
 # Visualize sub mesh with displacement texture
-visb_sc = splt.visbrain_plot(mesh=sub_meshes[0],tex=disp2.flatten() ,caption='displacement',
+visb_sc = splt.visbrain_plot(mesh=sub_meshes[0],tex=disp2.flatten() ,caption='Displacement on ROI',
                              cblabel='displacement')
 
 visb_sc.preview()
