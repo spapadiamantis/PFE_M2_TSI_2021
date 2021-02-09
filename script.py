@@ -72,7 +72,8 @@ mesh_file = '../KKI2009_113/MR1/lh.white.gii'
 FV1 = sio.load_mesh(mesh_file)
 
 # Get transformation Matrix
-M1 = FV1.principal_inertia_transform
+# The ransfromation matrix was wxtracted manually from the GIfTI files and strored in txt files
+M1 = np.loadtxt('../KKI2009_113/MR1/M.txt')
 mesh_file = '../KKI2009_113/MR1/lh.sphere.reg.gii'
 sphFV1 = sio.load_mesh(mesh_file)
 
@@ -85,7 +86,7 @@ texture1 = texture1.darray[0]
 # Get transformation Matrix
 mesh_file = '../KKI2009_113/MR2/lh.white.gii'
 FV2 = sio.load_mesh(mesh_file)
-M2 = FV2.principal_inertia_transform
+M2 = np.loadtxt('../KKI2009_113/MR2/M.txt')
 
 # Transformation on FV2, inv(A1)*(A2*X2+T2-T1)
 transFV2=FV2
@@ -179,6 +180,7 @@ a=4*h/(w**2)
 #Z=a*Y.^2
 
 quadricFV = sgps.generate_quadric([1,a])
+
 
 # Analyze spectrum
 _,B3 = sdg.compute_mesh_laplacian(quadricFV, lap_type='fem')
