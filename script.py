@@ -124,9 +124,9 @@ visb_sc.preview()
 # Calculate laplacian eigenvectors for graphs
 
 # Get laplacian matrix (performed 2x)
-_,B1 = sdg.compute_mesh_laplacian(transFV2, lap_type='fem')
+_,B1 = sdg.compute_mesh_laplacian(sub_meshes[0], lap_type='fem')
 # Calculate eigenvectors
-V1 = sdg.mesh_laplacian_eigenvectors(transFV2)
+V1 = sdg.mesh_laplacian_eigenvectors(sub_meshes[0],nb_vectors=100)
 
 # Get laplacian matrix (performed 2x)
 _,B2 = sdg.compute_mesh_laplacian(FV1, lap_type='fem')
@@ -134,11 +134,11 @@ _,B2 = sdg.compute_mesh_laplacian(FV1, lap_type='fem')
 V2 = sdg.mesh_laplacian_eigenvectors(FV1)
 
 # Get spectrum for meshes
-spectrum1=np.transpose(V1)*B1*np.transpose(transFV2.vertices)
+spectrum1= np.dot(np.transpose(V1),B1*sub_meshes[0].vertices)
 spectrum2=np.transpose(V2)*B2*np.transpose(FV1.vertices)
 
 # Get spectrum of displacement
-spectrum_displacement=np.transpose(V1)*B1*displacement
+spectrum_displacement= np.dot(np.transpose(V1),B1*disp2)
 
 # Visualize spectrums
 plt.plot(np.log10(np.abs(spectrum1[0,:])),'b')
@@ -198,7 +198,7 @@ N=len(randomFV.vertices)
 randomFV = quadricFV
 
 # Generate random displacement based on displacement spectrum
-randomD=V3*spectrum_displacement[0:N-1]
+randomD=np.dot(V3,np.transpose(spectrum_displacement[0:N-1]))
 
 # Randomly  assign signs for positive value vector
 # produces depreciation warning 
