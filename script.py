@@ -115,6 +115,7 @@ sub_meshes, sub_tex, sub_corresp = stop.cut_mesh(FV1,texture1)
 ind = np.argwhere(texture1>0)
 disp2 = displacement[ind]
 
+
 # Visualize sub mesh with displacement texture
 visb_sc = splt.visbrain_plot(mesh=sub_meshes[0],tex=disp2.flatten() ,caption='Displacement on ROI',
                              cblabel='displacement')
@@ -172,10 +173,6 @@ w=max(X_new[:,1])-min(X_new[:,1])
 h=10 
 
 # Generate quadric surface
-incr=h/10
-x=np.arange(-L/2,L/2,incr)
-y=np.arange(-w/2,w/2,incr)
-X,Y=np.meshgrid(x,y)
 a=4*h/(w**2)
 #Z=a*Y.^2
 
