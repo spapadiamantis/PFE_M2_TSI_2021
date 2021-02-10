@@ -39,9 +39,13 @@ visb_sc.preview()
 # Initialisation of var for texture
 texture2 = np.zeros(len(coord2))
 
+print("Calculating texture by interpolation")
+
 # Algo Interpolation
 for i in range(len(coord2)):
-    ind = np.argmin(np.linalg.norm(coord1 - sphFV2.vertices[i,:]))
+    if i%1000 ==0:
+          print("{:.2f}".format(i/total*100), " percent finished")
+    ind = np.argmin(np.linalg.norm(coord1 - sphFV2.vertices[i,:],axis=1))
     texture2[i] = texture1[ind]
 
 # Saving texture in npy format

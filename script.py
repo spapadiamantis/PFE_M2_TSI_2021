@@ -196,7 +196,7 @@ randomFV = quadricFV
 
 # Generate random displacement based on displacement spectrum
 randomD=np.dot(V3,np.transpose(spectrum_displacement[0:N-1]))
-
+print(randomD.shape)
 # Randomly  assign signs for positive value vector
 # produces depreciation warning 
 #randSign = np.sign(np.random.randint(-1,1+1,size=N))
